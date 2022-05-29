@@ -10,8 +10,12 @@
   },
   "dependencies": {
     "next": "12.1.6",
+    "prop-types": "^15.8.1",
     "react": "18.1.0",
-    "react-dom": "18.1.0"
+    "react-color": "^2.19.3",
+    "react-dom": "18.1.0",
+    "react-linear-gradient-picker": "^2.0.6",
+    "styled-components": "^5.3.5"
   },
   "devDependencies": {
     "eslint": "8.16.0",
