@@ -57,6 +57,7 @@ export default function Sidebar({
   const [shareLinkText, setShareLinkText] = useState("Get Share Link");
 
   const clipboard = () => {
+    const outputStyle = styleSelected.toLowerCase() 
     const colorsVars = backgroundColor.split("linear-gradient")[1];
     const background =
       backgroundColor.split(", rgb")[1] || backgroundColor.split(", #")[1];
@@ -64,9 +65,9 @@ export default function Sidebar({
     background: ${
       outputFormat === "Rgb" ? `rgb${background}` : `#${background}`
     };
-    background: -webkit-linear-gradient${colorsVars};
-    background: -moz-linear-gradient${colorsVars};
-    background: linear-gradient${colorsVars};`;
+    background: -webkit-${outputStyle}-gradient${colorsVars};
+    background: -moz-${outputStyle}-gradient${colorsVars};
+    background: ${outputStyle}-gradient${colorsVars};`;
     navigator.clipboard.writeText(text);
   };
 
