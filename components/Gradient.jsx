@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import styled from "styled-components";
 
-const Gradient = styled.div`
+const LinearGradient = styled.div`
   position: relative;
   top: 0;
   bottom: 0;
@@ -14,7 +14,31 @@ const Gradient = styled.div`
   width:100%;
 }
 `;
-export default function GradientContainer({ colors, angle, getBackGround }) {
+
+const RadialGradient = styled.div`
+  position: relative;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  z-index: 50;
+  background:  ${(props) =>
+    props.position === "at center center"
+      ? `radial-gradient(at center center, ${
+          props?.colors?.colorTwoSelected?.rgb ?? ""
+        }, ${props?.colors?.colorOneSelected?.rgb ?? ""})`
+      : `-webkit-radial-gradient(${props.position}, ${
+          props?.colors?.colorTwoSelected?.rgb ?? ""
+        }, ${props?.colors?.colorOneSelected?.rgb ?? ""})`};
+  width:100%;
+}
+`;
+export default function GradientContainer({
+  colors,
+  angle,
+  getBackGround,
+  style,
+  position,
+}) {
   useEffect(() => {
     getBackGround(
       `linear-gradient(${angle}deg, ${colors?.colorTwoSelected?.rgb ?? ""}, ${
@@ -22,5 +46,12 @@ export default function GradientContainer({ colors, angle, getBackGround }) {
       })`
     );
   }, [colors, angle]);
-  return <Gradient colors={colors} angle={angle} />;
+  return (
+    <>
+      {style === "Radial" && (
+        <RadialGradient colors={colors} position={position} />
+      )}
+      {style === "Linear" && <LinearGradient colors={colors} angle={angle} />}
+    </>
+  );
 }

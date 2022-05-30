@@ -21,7 +21,12 @@ const ColorPickerContainer = styled.div`
   flex-direciont: row;
 `;
 
-export default function ColorsSection({ titleSection, buttonText, getColors }) {
+export default function ColorsSection({
+  titleSection,
+  buttonText,
+  getColors,
+  isRandomCallToAction,
+}) {
   const [colorSelectedOne, setColorSelectedOne] = useState("");
   const [colorSelectedTwo, setColorSelectedTwo] = useState("");
   const [isRandom, setIsRandom] = useState(false);
@@ -29,6 +34,10 @@ export default function ColorsSection({ titleSection, buttonText, getColors }) {
   useEffect(() => {
     getColors(colorSelectedOne, colorSelectedTwo);
   }, [colorSelectedOne, colorSelectedTwo]);
+
+  useEffect(() => {
+    setIsRandom(!isRandom);
+  }, [isRandomCallToAction]);
 
   return (
     <ColorsContainer>

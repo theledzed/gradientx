@@ -1,43 +1,36 @@
 import styled from "styled-components";
-import Button from "../Commons/Button";
+import ButtonImg from "../Commons/ButtonImg";
 
 const ButtonGroupContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-const Label = styled.span`
-  display: block;
-  margin-top: 16px;
-  font-weight: 600;
-  font-size: 0.8125rem;
-  line-height: 1.75rem;
-`;
-
 const OptionsContainer = styled.div`
   display: flex;
   flex-direciont: row;
+  display: flex;
+  flex-wrap: wrap;
 `;
 
-export default function ButtonGroupSection({
+export default function ButtonGroupPositionSection({
   options,
-  titleSection,
   onClickButton,
   valueSelected,
 }) {
   return (
     <ButtonGroupContainer>
-      <Label>{titleSection}</Label>
       <OptionsContainer>
         {options.map((buttonOption, index) => {
           return (
-            <Button
+            <ButtonImg
               isSelected={valueSelected === buttonOption.value}
               onClickButton={() => {
                 onClickButton(buttonOption.value);
               }}
               key={index}
               buttonText={buttonOption.value}
+              svg={buttonOption.svg}
             />
           );
         })}
