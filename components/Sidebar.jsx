@@ -55,10 +55,15 @@ export default function Sidebar({
   const [isRandom, setIsRandom] = useState(false);
   const [getCssText, setGetCssText] = useState("Get CSS");
   const [shareLinkText, setShareLinkText] = useState("Get Share Link");
+  const [position, setPosition] = useState("at center center");
 
   const clipboard = () => {
-    const outputStyle = styleSelected.toLowerCase() 
-    const colorsVars = backgroundColor.split("linear-gradient")[1];
+    const outputStyle = styleSelected.toLowerCase();
+    let colorsVars = backgroundColor.split("linear-gradient")[1];
+    const deg = colorsVars.split(",")[0].replace("(", "");
+    if (styleSelected !== "Linear") {
+      colorsVars = colorsVars.replace(deg, position);
+    }
     const background =
       backgroundColor.split(", rgb")[1] || backgroundColor.split(", #")[1];
     const text = `
@@ -102,7 +107,10 @@ export default function Sidebar({
         titleSection="Direction"
         getAngleSelected={getAngleSelected}
         backgroundColor={backgroundColor}
-        getPositionSelected={getPositionSelected}
+        getPositionSelected={(position) => {
+          setPosition(position);
+          getPositionSelected(position);
+        }}
       />
       <ColorsSection
         getColors={getColors}
