@@ -110,6 +110,7 @@ export default function Sidebar({
       <DirectionSection
         styleSelected={styleSelected}
         titleSection="Direction"
+        positionSelected={position}
         getAngleSelected={getAngleSelected}
         backgroundColor={backgroundColor}
         getPositionSelected={(position) => {
@@ -131,7 +132,6 @@ export default function Sidebar({
           getStyleSelected(style);
         }}
         getPositionQuery={(position) => {
-          console.log('----pos', position)
           setPosition(position);
           getPositionSelected(position);
         }}
