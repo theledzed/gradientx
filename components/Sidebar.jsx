@@ -1,6 +1,7 @@
+import { useState, useEffect } from "react";
 import ButtonGroupSection from "./Sections/ButtonGroupSection";
-import ColorsSection from "./Sections/ColorsSection"
-import DirectionSection from "./Sections/DirectionSection"
+import ColorsSection from "./Sections/ColorsSection";
+import DirectionSection from "./Sections/DirectionSection";
 import styled from "styled-components";
 
 const SideBarContainer = styled.div`
@@ -18,25 +19,73 @@ const TitleGradientx = styled.h1`
   font-size: 1.5rem;
   line-height: 1.75rem;
   font-weight: 600;
-
+  width: 1em;
   color: #3d4853;
   text-transform: uppercase;
   text-decoration: none;
+  &:hover {
+    cursor: pointer;
+    color: ${(props) => props.backgroundColor};
+    background: ${(props) => props.backgroundColor};
+    background: ${(props) => props.backgroundColor};
+    background: ${(props) => props.backgroundColor};
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    transition: color 0.2s ease-out;
+    width: 6em;
+  }
 `;
 
-export default function Sidebar({getColors, getAngleSelected, backgroundColor}) {
+export default function Sidebar({
+  getColors,
+  getAngleSelected,
+  backgroundColor,
+  getPositionSelected,
+  getStyleSelected,
+}) {
+  const [styleSelected, setStyleSelected] = useState("Linear");
+  const [ouputFormat, setOuputFormat] = useState("Hex");
+  const [isRandom, setIsRandom] = useState(false);
   return (
     <SideBarContainer>
-      <TitleGradientx>CSS Gradient Generator</TitleGradientx>
+      <TitleGradientx
+        onClick={() => {
+          setIsRandom(!isRandom);
+        }}
+        backgroundColor={backgroundColor}
+      >
+        CSS Gradient Generator
+      </TitleGradientx>
       <ButtonGroupSection
+        onClickButton={(value) => {
+          setStyleSelected(value);
+          getStyleSelected(value);
+        }}
         titleSection="Style"
         options={[{ value: "Linear" }, { value: "Radial" }]}
+        valueSelected={styleSelected}
       />
-      <DirectionSection titleSection="Direction" getAngleSelected={getAngleSelected} backgroundColor={backgroundColor}/>
-      <ColorsSection getColors={getColors} titleSection="Colors" buttonText="Random"/>
+      <DirectionSection
+        styleSelected={styleSelected}
+        titleSection="Direction"
+        getAngleSelected={getAngleSelected}
+        backgroundColor={backgroundColor}
+        getPositionSelected={getPositionSelected}
+      />
+      <ColorsSection
+        getColors={getColors}
+        titleSection="Colors"
+        buttonText="Random"
+        isRandomCallToAction={isRandom}
+      />
       <ButtonGroupSection
+        onClickButton={(value) => {
+          setOuputFormat(value);
+        }}
         titleSection="Output format"
         options={[{ value: "Hex" }, { value: "Rgba" }]}
+        valueSelected={ouputFormat}
       />
     </SideBarContainer>
   );

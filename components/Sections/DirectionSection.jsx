@@ -1,5 +1,17 @@
 import { useState, useEffect } from "react";
 import { AnglePicker } from "react-linear-gradient-picker";
+import ButtonGroupPositionSection from "./ButtonGroupPositionSection";
+import {
+  LeftTop,
+  Top,
+  RightTop,
+  Left,
+  Center,
+  Right,
+  LeftBottom,
+  Bottom,
+  RightBottom,
+} from "../Commons/Svgs";
 import styled from "styled-components";
 import "react-linear-gradient-picker/dist/index.css";
 
@@ -30,18 +42,46 @@ export default function DirectionSection({
   titleSection,
   getAngleSelected,
   backgroundColor,
+  getPositionSelected,
+  styleSelected,
 }) {
   const [angle, setAngle] = useState(25);
+  const [position, setPosition] = useState("at center center");
   useEffect(() => {
     getAngleSelected(angle);
   }, [angle]);
 
+  useEffect(() => {
+    getPositionSelected(position);
+  }, [position]);
+
   return (
     <AlglePickerContainer>
       <Label>{titleSection}</Label>
-      <PickerContainer backgroundColor={backgroundColor}>
-        <AnglePicker size={150} snap={1} angle={angle} setAngle={setAngle} />
-      </PickerContainer>
+      {styleSelected === "Linear" && (
+        <PickerContainer backgroundColor={backgroundColor}>
+          <AnglePicker size={150} snap={1} angle={angle} setAngle={setAngle} />
+        </PickerContainer>
+      )}
+      {styleSelected === "Radial" && (
+        <ButtonGroupPositionSection
+          onClickButton={(value) => {
+            setPosition(value);
+          }}
+          options={[
+            { value: "left top", svg: <LeftTop /> },
+            { value: "center top", svg: <Top /> },
+            { value: "right top", svg: <RightTop /> },
+            { value: "left center", svg: <Left /> },
+            { value: "at center center", svg: <Center /> },
+            { value: "right center", svg: <Right /> },
+            { value: "left bottom", svg: <LeftBottom /> },
+            { value: "center bottom", svg: <Bottom /> },
+            { value: "right bottom", svg: <RightBottom /> },
+          ]}
+          valueSelected={position}
+        />
+      )}
     </AlglePickerContainer>
   );
 }
