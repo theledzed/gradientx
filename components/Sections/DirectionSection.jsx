@@ -44,9 +44,10 @@ export default function DirectionSection({
   backgroundColor,
   getPositionSelected,
   styleSelected,
+  positionSelected
 }) {
   const [angle, setAngle] = useState(25);
-  const [position, setPosition] = useState("at center center");
+  const [position, setPosition] = useState(positionSelected);
   useEffect(() => {
     getAngleSelected(angle);
   }, [angle]);

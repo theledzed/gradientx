@@ -56,6 +56,8 @@ export default function Sidebar({
   const [getCssText, setGetCssText] = useState("Get CSS");
   const [shareLinkText, setShareLinkText] = useState("Get Share Link");
   const [position, setPosition] = useState("at center center");
+  const [colorOptionOne, setColorOptionOne] = useState(null);
+  const [colorOptionTwo, setColorOptionTwo] = useState(null);
 
   const clipboard = () => {
     const outputStyle = styleSelected.toLowerCase();
@@ -77,9 +79,12 @@ export default function Sidebar({
   };
 
   const shareLink = () => {
+    const optionColors = `${colorOptionOne.hex}?=${colorOptionTwo.hex}`;
     const newShareLink = `${
       window.location.origin
-    }?=${backgroundColor.replaceAll(" ", "")}?=${styleSelected}`;
+    }?=${optionColors}?=${styleSelected}${
+      styleSelected === "Radial" ? `?=${position}` : ""
+    }`;
     navigator.clipboard.writeText(newShareLink);
   };
 
@@ -105,6 +110,7 @@ export default function Sidebar({
       <DirectionSection
         styleSelected={styleSelected}
         titleSection="Direction"
+        positionSelected={position}
         getAngleSelected={getAngleSelected}
         backgroundColor={backgroundColor}
         getPositionSelected={(position) => {
@@ -113,10 +119,22 @@ export default function Sidebar({
         }}
       />
       <ColorsSection
-        getColors={getColors}
+        getColors={(optionOne, optionTwo) => {
+          setColorOptionOne(optionOne);
+          setColorOptionTwo(optionTwo);
+          getColors(optionOne, optionTwo);
+        }}
         titleSection="Colors"
         buttonText="Random"
         isRandomCallToAction={isRandom}
+        getStyledQuery={(style) => {
+          setStyleSelected(style);
+          getStyleSelected(style);
+        }}
+        getPositionQuery={(position) => {
+          setPosition(position);
+          getPositionSelected(position);
+        }}
       />
       <ButtonGroupSection
         onClickButton={(value) => {
