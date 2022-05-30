@@ -38,14 +38,19 @@ export default function GradientContainer({
   getBackGround,
   style,
   position,
+  outputFormat,
 }) {
   useEffect(() => {
-    getBackGround(
-      `linear-gradient(${angle}deg, ${colors?.colorTwoSelected?.rgb ?? ""}, ${
-        colors?.colorOneSelected?.rgb ?? ""
-      })`
-    );
-  }, [colors, angle]);
+    const style =
+      outputFormat === "Hex"
+        ? `linear-gradient(${angle}deg, ${
+            colors?.colorTwoSelected?.hex ?? ""
+          }, ${colors?.colorOneSelected?.hex ?? ""})`
+        : `linear-gradient(${angle}deg, ${
+            colors?.colorTwoSelected?.rgb ?? ""
+          }, ${colors?.colorOneSelected?.rgb ?? ""})`;
+    getBackGround(style);
+  }, [colors, angle, outputFormat]);
   return (
     <>
       {style === "Radial" && (

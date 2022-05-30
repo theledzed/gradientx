@@ -15,6 +15,9 @@ export default function Layout() {
   const [style, setStyle] = useState("Linear");
   const [position, setPosition] = useState("at center center");
   const [backgroundColor, setBackgroundColor] = useState("");
+  const [outputFormat, setoutputFormat] = useState("Hex");
+
+
   return (
     <LayoutRow>
       <Sidebar
@@ -31,12 +34,16 @@ export default function Layout() {
         getPositionSelected={(position) => {
           setPosition(position);
         }}
+        getOutputFormat={(outPutFormat) => {
+          setoutputFormat(outPutFormat);
+        }}
       />
       <Gradient
         colors={colors}
         angle={angle}
         position={position}
         style={style}
+        outputFormat={outputFormat}
         getBackGround={(backgroundColor) => {
           setBackgroundColor(backgroundColor);
         }}
