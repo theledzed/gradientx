@@ -6,12 +6,21 @@ const Picker = styled.input`
   margin-left: 8px;
 `;
 
-export default function ColorPicker({ getSelectedColor, isRandom }) {
+export default function ColorPicker({
+  getSelectedColor,
+  isRandom,
+  colorQuerySelected,
+  isShareLink,
+}) {
   const [randomColor, setRandomColor] = useState({});
   const [colorSelected, setColorSelected] = useState(null);
 
   useEffect(() => {
-    generateRamdonColors();
+    if (colorQuerySelected && isShareLink) {
+      setColorSelected(colorQuerySelected);
+    } else {
+      generateRamdonColors();
+    }
   }, [isRandom]);
 
   useEffect(() => {
