@@ -144,7 +144,7 @@ export default function Sidebar({
             shareLink();
             setShareLinkText("Yay! Copied to Clipboard!");
             setTimeout(() => {
-              setGetCssText("Get Share Link");
+              setShareLinkText("Get Share Link");
             }, 2000);
           }}
         />
