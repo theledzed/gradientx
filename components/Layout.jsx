@@ -1,13 +1,20 @@
-import Sidebar from "./Sidebar";
 import { useState } from "react";
+import Sidebar from "./Sidebar";
 import Gradient from "./Gradient";
 import styled from "styled-components";
-import { OUTPUTS_FORMAT, RADIAL_POSITIONS, GRADIENT_TYPES } from "../utils/constants";
+import {
+  OUTPUTS_FORMAT,
+  RADIAL_POSITIONS,
+  GRADIENT_TYPES,
+} from "../utils/constants";
 
 const LayoutRow = styled.div`
   display: flex;
   flex-direction: row;
   height: 100vh;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 export default function Layout() {
