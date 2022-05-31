@@ -11,5 +11,7 @@ const SIDEBAR_COPIES = {
   HEX: "Hex",
   RGB: "Rgb",
   YAY_COPIED: "Yay! Copied to Clipboard!",
+  CUSTOMIZE: "Customize!",
+  CLOSE: "Close"
 };
 export { SIDEBAR_COPIES };
