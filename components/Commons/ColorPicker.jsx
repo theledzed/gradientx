@@ -20,7 +20,7 @@ export default function ColorPicker({
     if (colorQuerySelected && isShareLink) {
       setColorSelected(colorQuerySelected);
     } else {
-      generateRamdonColors();
+      generateRandomColors();
     }
   }, [isRandom]);
 
@@ -34,7 +34,7 @@ export default function ColorPicker({
     setColorSelected({ hex, rgb });
   };
 
-  const generateRamdonColors = () => {
+  const generateRandomColors = () => {
     const hex = `#${Math.floor(Math.random() * 16777215).toString(16)}`;
     const rgb = getRgbaColor(hex);
     setRandomColor({ hex, rgb });
@@ -48,8 +48,8 @@ export default function ColorPicker({
       onChange={(event) => {
         getValues(event.target.value);
       }}
-      id="head"
-      name="head"
+      id="color-picker"
+      name="color-picker"
       value={colorSelected?.hex ?? randomColor.hex}
     />
   );

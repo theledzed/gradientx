@@ -4,6 +4,8 @@ import ColorsSection from "./Sections/ColorsSection";
 import DirectionSection from "./Sections/DirectionSection";
 import LargeButton from "./Commons/LargeButton";
 import styled from "styled-components";
+import { OUTPUTS_FORMAT, RADIAL_POSITIONS, GRADIENT_TYPES } from "../utils/constants";
+import { SIDEBAR_COPIES } from "../utils/copies";
 
 const SideBarContainer = styled.div`
   top: 0;
@@ -50,12 +52,12 @@ export default function Sidebar({
   getStyleSelected,
   getOutputFormat,
 }) {
-  const [styleSelected, setStyleSelected] = useState("Linear");
-  const [outputFormat, setoutputFormat] = useState("Hex");
+  const [styleSelected, setStyleSelected] = useState(GRADIENT_TYPES.LINEAR);
+  const [outputFormat, setoutputFormat] = useState(OUTPUTS_FORMAT.HEX);
   const [isRandom, setIsRandom] = useState(false);
-  const [getCssText, setGetCssText] = useState("Get CSS");
-  const [shareLinkText, setShareLinkText] = useState("Get Share Link");
-  const [position, setPosition] = useState("at center center");
+  const [getCssText, setGetCssText] = useState(SIDEBAR_COPIES.GET_CSS);
+  const [shareLinkText, setShareLinkText] = useState(SIDEBAR_COPIES.GET_SHARE_LINK);
+  const [position, setPosition] = useState(RADIAL_POSITIONS.CENTER_CENTER);
   const [colorOptionOne, setColorOptionOne] = useState(null);
   const [colorOptionTwo, setColorOptionTwo] = useState(null);
   const [angle, setAngle] = useState(25);
@@ -64,14 +66,14 @@ export default function Sidebar({
     const outputStyle = styleSelected.toLowerCase();
     let colorsVars = backgroundColor.split("linear-gradient")[1];
     const deg = colorsVars.split(",")[0].replace("(", "");
-    if (styleSelected !== "Linear") {
+    if (styleSelected !== GRADIENT_TYPES.LINEAR) {
       colorsVars = colorsVars.replace(deg, position);
     }
     const background =
       backgroundColor.split(", rgb")[1] || backgroundColor.split(", #")[1];
     const text = `
     background: ${
-      outputFormat === "Rgb" ? `rgb${background}` : `#${background}`
+      outputFormat === OUTPUTS_FORMAT.RGB ? `rgb${background}` : `#${background}`
     };
     background: -webkit-${outputStyle}-gradient${colorsVars};
     background: -moz-${outputStyle}-gradient${colorsVars};
@@ -84,7 +86,7 @@ export default function Sidebar({
     const newShareLink = `${
       window.location.origin
     }?=${optionColors}?=${styleSelected}?=${
-      styleSelected === "Radial" ? position : angle
+      styleSelected === GRADIENT_TYPES.RADIAL ? position : angle
     }`;
     navigator.clipboard.writeText(newShareLink);
   };
@@ -104,13 +106,13 @@ export default function Sidebar({
           setStyleSelected(value);
           getStyleSelected(value);
         }}
-        titleSection="Style"
-        options={[{ value: "Linear" }, { value: "Radial" }]}
+        titleSection={SIDEBAR_COPIES.STYLE}
+        options={[{ value: GRADIENT_TYPES.LINEAR}, { value: GRADIENT_TYPES.RADIAL }]}
         valueSelected={styleSelected}
       />
       <DirectionSection
         styleSelected={styleSelected}
-        titleSection="Direction"
+        titleSection={SIDEBAR_COPIES.DIRECTION}
         positionSelected={position}
         angleSelected={angle}
         getAngleSelected={(angle) => {
@@ -129,8 +131,8 @@ export default function Sidebar({
           setColorOptionTwo(optionTwo);
           getColors(optionOne, optionTwo);
         }}
-        titleSection="Colors"
-        buttonText="Random"
+        titleSection={SIDEBAR_COPIES.COLORS}
+        buttonText={SIDEBAR_COPIES.RANDOM}
         isRandomCallToAction={isRandom}
         getStyledQuery={(style) => {
           setStyleSelected(style);
@@ -150,8 +152,8 @@ export default function Sidebar({
           setoutputFormat(value);
           getOutputFormat(value);
         }}
-        titleSection="Output format"
-        options={[{ value: "Hex" }, { value: "Rgb" }]}
+        titleSection={SIDEBAR_COPIES.OUTPUT_FORMAT}
+        options={[{ value: OUTPUTS_FORMAT.HEX}, { value: OUTPUTS_FORMAT.RGB }]}
         valueSelected={outputFormat}
       />
       <LargeButtonContainer>
@@ -159,9 +161,9 @@ export default function Sidebar({
           buttonText={getCssText}
           onClickButton={() => {
             clipboard();
-            setGetCssText("Yay! Copied to Clipboard!");
+            setGetCssText(SIDEBAR_COPIES.YAY_COPIED);
             setTimeout(() => {
-              setGetCssText("Get CSS");
+              setGetCssText(SIDEBAR_COPIES.GET_CSS);
             }, 2000);
           }}
         />
@@ -169,9 +171,9 @@ export default function Sidebar({
           buttonText={shareLinkText}
           onClickButton={() => {
             shareLink();
-            setShareLinkText("Yay! Copied to Clipboard!");
+            setShareLinkText(SIDEBAR_COPIES.YAY_COPIED);
             setTimeout(() => {
-              setShareLinkText("Get Share Link");
+              setShareLinkText(SIDEBAR_COPIES.GET_SHARE_LINK);
             }, 2000);
           }}
         />

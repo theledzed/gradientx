@@ -15,8 +15,9 @@ import {
 } from "../Commons/Svgs";
 import styled from "styled-components";
 import "react-linear-gradient-picker/dist/index.css";
+import { RADIAL_POSITIONS, GRADIENT_TYPES } from "../../utils/constants";
 
-const AlglePickerContainer = styled.div`
+const AnglePickerContainer = styled.div`
   display: flex;
   flex-direction: column;
 `;
@@ -68,9 +69,9 @@ export default function DirectionSection({
   }, [angleSelected]);
 
   return (
-    <AlglePickerContainer>
+    <AnglePickerContainer>
       <Label>{titleSection}</Label>
-      {styleSelected === "Linear" && (
+      {styleSelected === GRADIENT_TYPES.LINEAR && (
         <PickerContainer backgroundColor={backgroundColor}>
           <AnglePicker
             size={150}
@@ -82,25 +83,25 @@ export default function DirectionSection({
           />
         </PickerContainer>
       )}
-      {styleSelected === "Radial" && (
+      {styleSelected === GRADIENT_TYPES.RADIAL && (
         <ButtonGroupPositionSection
           onClickButton={(value) => {
             setPosition(value);
           }}
           options={[
-            { value: "left top", svg: <LeftTop /> },
-            { value: "center top", svg: <Top /> },
-            { value: "right top", svg: <RightTop /> },
-            { value: "left center", svg: <Left /> },
-            { value: "at center center", svg: <Center /> },
-            { value: "right center", svg: <Right /> },
-            { value: "left bottom", svg: <LeftBottom /> },
-            { value: "center bottom", svg: <Bottom /> },
-            { value: "right bottom", svg: <RightBottom /> },
+            { value: RADIAL_POSITIONS.LEFT_TOP, svg: <LeftTop /> },
+            { value: RADIAL_POSITIONS.CENTER_TOP, svg: <Top /> },
+            { value: RADIAL_POSITIONS.RIGHT_TOP, svg: <RightTop /> },
+            { value: RADIAL_POSITIONS.LEFT_CENTER, svg: <Left /> },
+            { value: RADIAL_POSITIONS.CENTER_CENTER, svg: <Center /> },
+            { value: RADIAL_POSITIONS.RIGHT_CENTER, svg: <Right /> },
+            { value: RADIAL_POSITIONS.LEFT_BOTTOM, svg: <LeftBottom /> },
+            { value: RADIAL_POSITIONS.CENTER_BOTTOM, svg: <Bottom /> },
+            { value: RADIAL_POSITIONS.RIGHT_BOTTOM, svg: <RightBottom /> },
           ]}
           valueSelected={position}
         />
       )}
-    </AlglePickerContainer>
+    </AnglePickerContainer>
   );
 }
