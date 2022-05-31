@@ -58,6 +58,7 @@ export default function Sidebar({
   const [position, setPosition] = useState("at center center");
   const [colorOptionOne, setColorOptionOne] = useState(null);
   const [colorOptionTwo, setColorOptionTwo] = useState(null);
+  const [angle, setAngle] = useState(25);
 
   const clipboard = () => {
     const outputStyle = styleSelected.toLowerCase();
@@ -82,8 +83,8 @@ export default function Sidebar({
     const optionColors = `${colorOptionOne.hex}?=${colorOptionTwo.hex}`;
     const newShareLink = `${
       window.location.origin
-    }?=${optionColors}?=${styleSelected}${
-      styleSelected === "Radial" ? `?=${position}` : ""
+    }?=${optionColors}?=${styleSelected}?=${
+      styleSelected === "Radial" ? position : angle
     }`;
     navigator.clipboard.writeText(newShareLink);
   };
@@ -111,7 +112,11 @@ export default function Sidebar({
         styleSelected={styleSelected}
         titleSection="Direction"
         positionSelected={position}
-        getAngleSelected={getAngleSelected}
+        angleSelected={angle}
+        getAngleSelected={(angle) => {
+          setAngle(angle);
+          getAngleSelected(angle);
+        }}
         backgroundColor={backgroundColor}
         getPositionSelected={(position) => {
           setPosition(position);
@@ -134,6 +139,10 @@ export default function Sidebar({
         getPositionQuery={(position) => {
           setPosition(position);
           getPositionSelected(position);
+        }}
+        getAngleQuery={(angle) => {
+          setAngle(angle);
+          getAngleSelected(angle);
         }}
       />
       <ButtonGroupSection

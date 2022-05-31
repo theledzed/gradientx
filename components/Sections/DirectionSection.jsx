@@ -45,8 +45,9 @@ export default function DirectionSection({
   getPositionSelected,
   styleSelected,
   positionSelected,
+  angleSelected,
 }) {
-  const [angle, setAngle] = useState(25);
+  const [angle, setAngle] = useState(angleSelected);
   const [position, setPosition] = useState(positionSelected);
   useEffect(() => {
     getAngleSelected(angle);
@@ -60,12 +61,23 @@ export default function DirectionSection({
     setPosition(positionSelected);
   }, [positionSelected]);
 
+  useEffect(() => {
+    setAngle(angleSelected);
+  }, [angleSelected]);
+
   return (
     <AlglePickerContainer>
       <Label>{titleSection}</Label>
       {styleSelected === "Linear" && (
         <PickerContainer backgroundColor={backgroundColor}>
-       <AnglePicker size={150} snap={1} angle={angle} setAngle={setAngle} />
+          <AnglePicker
+            size={150}
+            snap={1}
+            angle={angle}
+            setAngle={(angle) => {
+              setAngle(angle);
+            }}
+          />
         </PickerContainer>
       )}
       {styleSelected === "Radial" && (
