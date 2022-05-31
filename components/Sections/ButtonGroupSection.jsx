@@ -36,7 +36,7 @@ export default function ButtonGroupSection({
               onClickButton={() => {
                 onClickButton(buttonOption.value);
               }}
-              key={index}
+              key={`button-${buttonOption.value}`}
               buttonText={buttonOption.value}
             />
           );

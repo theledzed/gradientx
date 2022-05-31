@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import styled from "styled-components";
+import { OUTPUTS_FORMAT, RADIAL_POSITIONS, GRADIENT_TYPES } from "../utils/constants";
 
 const LinearGradient = styled.div`
   position: relative;
@@ -23,8 +24,8 @@ const RadialGradient = styled.div`
   height: 100%;
   z-index: 50;
   background:  ${(props) =>
-    props.position === "at center center"
-      ? `radial-gradient(at center center, ${
+    props.position === RADIAL_POSITIONS.CENTER_CENTER
+      ? `radial-gradient(${RADIAL_POSITIONS.CENTER_CENTER}, ${
           props?.colors?.colorTwoSelected?.rgb ?? ""
         }, ${props?.colors?.colorOneSelected?.rgb ?? ""})`
       : `-webkit-radial-gradient(${props.position}, ${
@@ -43,7 +44,7 @@ export default function GradientContainer({
 }) {
   useEffect(() => {
     const style =
-      outputFormat === "Hex"
+      outputFormat === OUTPUTS_FORMAT.HEX
         ? `linear-gradient(${angle}deg, ${
             colors?.colorTwoSelected?.hex ?? ""
           }, ${colors?.colorOneSelected?.hex ?? ""})`
@@ -54,10 +55,10 @@ export default function GradientContainer({
   }, [colors, angle, outputFormat]);
   return (
     <>
-      {style === "Radial" && (
+      {style === GRADIENT_TYPES.RADIAL && (
         <RadialGradient colors={colors} position={position} />
       )}
-      {style === "Linear" && <LinearGradient colors={colors} angle={angle} />}
+      {style === GRADIENT_TYPES.LINEAR && <LinearGradient colors={colors} angle={angle} />}
     </>
   );
 }

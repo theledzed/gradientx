@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Button from "../Commons/Button";
 import { useState, useEffect } from "react";
 import { getRgbaColor } from "../../utils/helpers";
+import { GRADIENT_TYPES, RADIAL_POSITIONS } from "../../utils/constants";
 
 const ColorsContainer = styled.div`
   display: flex;
@@ -66,10 +67,10 @@ export default function ColorsSection({
     setQueryColorTwo({ hex: optionTwoHex, rgb: optionTwoRgb });
     const styleQuery = params[3];
     const positionQuery =
-      styleQuery === "Radial"
+      styleQuery === GRADIENT_TYPES.RADIAL
         ? params[4].replaceAll("%20", " ")
-        : "at center center";
-    const angleQuery = styleQuery === "Linear" ? params[4] : 25;
+        : RADIAL_POSITIONS.CENTER_CENTER;
+    const angleQuery = styleQuery === GRADIENT_TYPES.LINEAR ? params[4] : 25;
     getPositionQuery(positionQuery);
     getStyledQuery(styleQuery);
     getAngleQuery(angleQuery);

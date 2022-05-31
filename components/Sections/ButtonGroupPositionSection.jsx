@@ -28,7 +28,7 @@ export default function ButtonGroupPositionSection({
               onClickButton={() => {
                 onClickButton(buttonOption.value);
               }}
-              key={index}
+              key={`position-${index}`}
               buttonText={buttonOption.value}
               svg={buttonOption.svg}
             />
