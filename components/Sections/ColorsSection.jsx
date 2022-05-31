@@ -29,6 +29,7 @@ export default function ColorsSection({
   isRandomCallToAction,
   getStyledQuery,
   getPositionQuery,
+  getAngleQuery
 }) {
   const [colorSelectedOne, setColorSelectedOne] = useState("");
   const [colorSelectedTwo, setColorSelectedTwo] = useState("");
@@ -58,9 +59,11 @@ export default function ColorsSection({
       setQueryColorTwo({ hex: optionTwoHex, rgb: optionTwoRgb });
       const styleQuery = params[3];
       const positionQuery =
-        styleQuery === "Radial" ? params[4].replaceAll("%20", " ") : "";
+        styleQuery === "Radial" ? params[4].replaceAll("%20", " ") : "at center center";
+      const angleQuery = styleQuery === "Linear" ? params[4] : 25;
       getPositionQuery(positionQuery);
       getStyledQuery(styleQuery);
+      getAngleQuery(angleQuery)
       setIsShareLink(true);
     }
   }, []);
