@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useRouter } from "next/router";
 import ColorPicker from "../Commons/ColorPicker";
 import styled from "styled-components";
 import Button from "../Commons/Button";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import { getRgbaColor } from "../../utils/helpers";
 
 const ColorsContainer = styled.div`
   display: flex;
@@ -29,7 +31,7 @@ export default function ColorsSection({
   isRandomCallToAction,
   getStyledQuery,
   getPositionQuery,
-  getAngleQuery
+  getAngleQuery,
 }) {
   const [colorSelectedOne, setColorSelectedOne] = useState("");
   const [colorSelectedTwo, setColorSelectedTwo] = useState("");
@@ -50,29 +52,28 @@ export default function ColorsSection({
 
   useEffect(() => {
     if (router.asPath.includes("?")) {
-      const params = router.asPath.split("?=");
-      const optionOneHex = params[1];
-      const optionTwoHex = params[2];
-      const optionOneRgb = getRgbaColor(optionOneHex);
-      const optionTwoRgb = getRgbaColor(optionTwoHex);
-      setQueryColorOne({ hex: optionOneHex, rgb: optionOneRgb });
-      setQueryColorTwo({ hex: optionTwoHex, rgb: optionTwoRgb });
-      const styleQuery = params[3];
-      const positionQuery =
-        styleQuery === "Radial" ? params[4].replaceAll("%20", " ") : "at center center";
-      const angleQuery = styleQuery === "Linear" ? params[4] : 25;
-      getPositionQuery(positionQuery);
-      getStyledQuery(styleQuery);
-      getAngleQuery(angleQuery)
-      setIsShareLink(true);
+      getInfoShareLink();
     }
   }, []);
 
-  const getRgbaColor = (color) => {
-    const r = parseInt(color.substr(1, 2), 16);
-    const g = parseInt(color.substr(3, 2), 16);
-    const b = parseInt(color.substr(5, 2), 16);
-    return `rgb(${r},${g},${b})`;
+  const getInfoShareLink = () => {
+    const params = router.asPath.split("?=");
+    const optionOneHex = params[1];
+    const optionTwoHex = params[2];
+    const optionOneRgb = getRgbaColor(optionOneHex);
+    const optionTwoRgb = getRgbaColor(optionTwoHex);
+    setQueryColorOne({ hex: optionOneHex, rgb: optionOneRgb });
+    setQueryColorTwo({ hex: optionTwoHex, rgb: optionTwoRgb });
+    const styleQuery = params[3];
+    const positionQuery =
+      styleQuery === "Radial"
+        ? params[4].replaceAll("%20", " ")
+        : "at center center";
+    const angleQuery = styleQuery === "Linear" ? params[4] : 25;
+    getPositionQuery(positionQuery);
+    getStyledQuery(styleQuery);
+    getAngleQuery(angleQuery);
+    setIsShareLink(true);
   };
 
   return (

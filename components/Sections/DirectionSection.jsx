@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 import { AnglePicker } from "react-linear-gradient-picker";
 import ButtonGroupPositionSection from "./ButtonGroupPositionSection";
@@ -49,6 +50,7 @@ export default function DirectionSection({
 }) {
   const [angle, setAngle] = useState(angleSelected);
   const [position, setPosition] = useState(positionSelected);
+  
   useEffect(() => {
     getAngleSelected(angle);
   }, [angle]);
